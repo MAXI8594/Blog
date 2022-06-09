@@ -1,0 +1,9 @@
+<h1>home</h1>
+
+{% for projects in projects%}
+<h2> {{projects.title}}</h2>
+<p> {{projects.description}}</p>
+<imag src="{{projects.image.url}}" alt="">
+
+
+{%endfor%}
