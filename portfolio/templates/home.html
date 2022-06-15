@@ -1,10 +1,47 @@
-<h1>home</h1>
+
+{% extends 'layout.html' %}
+
+{%block content %}
+
+{% load static %}
+<header class="row ">
+    <div class="col-md-4">
+<img src="{% static 'portfolio/profile.png'%}" alt="" />
+    </div>
+
+    <div class="col-md-8 my-auto">
+        <h1> Yo soy<strong>Maximiliano Olivera<strong></h1>
+        <h3> Soy un Desarollador Python</h3>
+        <p>En este curso aprenderás las bases de programación uno de los lenguajes más populares en estos tiempos. Partirás desde sus fundamentos, para luego abarcar módulos y sintaxis, hasta el uso de reglas para crear tus primeras aplicaciones. Incorporarás los conocimientos necesarios de Class-Based-View, login - register - accounts, CRUD y modelforms. Desarrollarás una aplicación web estilo blog de la mano de Python en Django Framework.
+
+        </p>
+    </div>
+</header>
+<div class="row my_4 text-center">
+    <h3>Mis Proyectos</h3>
+    <p>lalalalalalalalalalalalalalaalallSS</p>
+
+
 
 {% for projects in projects%}
+<div class="col-md-4 p-4">
+    <div class="card bg-black card-projects">
+        <img src="{{projects.image.url}}" alt="project.title" class="card img-top" />
+        <div class="card body">
+        <h2>{{projects.title}}</h2>
+        <p>{{projects.description}}</p>
+        
+        <p>{{projects.url}}</p>
 
-<h2>{{projects.title}}</h2>
-<p>{{projects.description}}</p>
-<img src="{{projects.image.url}}" alt="project.title">
+        {% if project.url %}
+        <a hrerf="{{projects.url}}">{{projects.url}}</a>
+        {% endif %}
+    
 
-
+        </div>
+    </div>
+</div>
 {% endfor %}
+
+{% endblock %}
+</div>
