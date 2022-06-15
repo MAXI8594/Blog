@@ -1,13 +1,10 @@
 from django.urls import path
-from .views import render_post ,post_detail
+from . import views
+from .views import render_posts , post_detail 
 
-  
 
 urlpatterns = [
-    path('', render_post , name='post'),
-    path ('<int:post_id>' , post_detail ),
-
-]
-
+    path("", render_posts , name='posts'),
+    path("<int:post_id>", post_detail)]
 
 
