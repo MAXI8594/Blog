@@ -1,9 +1,10 @@
 <h1>home</h1>
 
 {% for projects in projects%}
-<h2> {{projects.title}}</h2>
-<p> {{projects.description}}</p>
-<img src="{{post.image.url}}" alt="">
+
+<h2>{{projects.title}}</h2>
+<p>{{projects.description}}</p>
+<img src="{{projects.image.url}}" alt="project.title">
 
 
-{%endfor%}
+{% endfor %}
