@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+
+{%block content%}
+
+<form action="" method="POST"> {% csrf_token %}
+
+    <table>
+    {{ miFormulario.as_p}}
+
+    </table>
+    <button type="submit" class="btn btn-primary">Enviar  </button>
+
+
+</form>
+{%endblock%}

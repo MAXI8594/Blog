@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+
+{%block content%}
+
+<form action="{ url 'editarPost' post_title}" method="POST"> {% csrf_token %}
+
+    <table>
+    {{ miFormulario.as_p}}
+
+    </table>
+    <button type="submit" class="btn btn-primary">Editar </button>
+
+
+</form>
+{%endblock%}
