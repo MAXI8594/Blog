@@ -1,3 +1,4 @@
+from ast import If
 from multiprocessing import context
 from pdb import post_mortem
 from django.shortcuts import render , get_object_or_404
@@ -9,6 +10,9 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 from django.views.generic.edit import UpdateView
 from django.views.generic.edit import DeleteView
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth import login, logout, authenticate
+from .forms import UserRegistrationForm
 
 # Create your views here.
 def render_posts(request):
@@ -18,43 +22,6 @@ def render_posts(request):
 #def post_detail(request ,post_id):
     post =get_object_or_404(Post , pk=post_id)
     return render (request ,'post_details.html', {'post': post_id} )
-
-#def postFormulario(request):
-    if request.method == 'POST':
-        miFormulario = PostFormulario(request.POST)
-        if miFormulario.is_valid():
-            informacion = miFormulario.cleaned_data
-        post = Post(title=informacion['title'], description=informacion['description'])
-        post.save()
-        return render(request, 'portfolio/home.html')
-    else:
-        miFormulario = PostFormulario()
-        return render(request, "postFormulario.html",{ "miFormulario":miFormulario})
-
-#def eliminarPost(request, title):
-    post= Post.objects.get(title=title)
-    post.delete()
-
-    posts = Post.objects.all()
-    context = { "posts":posts}
-
-    return render(request, 'post.html', context)
-
-#def editarPost(request, post_title):
-    post= Post.objects.get(title=post_title)
-    if request.method == 'POST':
-        miFormulario = PostFormulario(request.POST)
-        if miFormulario.is_valid():
-            informacion = miFormulario.cleaned_data
-            post.title= informacion['title']
-            post.description= informacion['description']
-            post.save()
-            posts = Post.objects.all()
-            context = {"posts":posts}
-            return render(request, 'post.html', context)
-    else:
-        miFormulario = PostFormulario(initial={"title":post.title, "description":post.description})
-        return render(request, "editarPost.html", {"miFormulario":miFormulario})
 
 
 class PostList(ListView):
@@ -78,3 +45,51 @@ class PostUpdate(UpdateView):
 class PostDelete(DeleteView):
     model= Post
     success_url= reverse_lazy('post_list')
+
+def login_request(request):
+
+    if request.method == "POST":
+        form = AuthenticationForm(request, data = request.POST)
+
+        if form.is_valid():
+            usuario = form.cleaned_data.get("username")
+            contraseña = form.cleaned_data.get("password")
+            
+            user = authenticate(username=usuario , password=contraseña)
+
+            if user is not None:
+                login(request, user)
+
+                return render(request, 'post.html', {"mensaje":f'Bienvenido {usuario}'})
+            
+            else:
+
+                return render(request, 'post.html', {"mensaje":'Error datos incorrectos'})
+        
+        else:
+
+            return render(request, 'post.html', {"mensaje":'Error formulario erroneo'})
+
+    form = AuthenticationForm()
+
+    return render(request, 'login.html', {'form': form})
+
+def register_request(request):
+
+    if request.method == "POST":
+        form = UserRegistrationForm(request.POST)
+
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            form.save()
+
+            return render(request, 'post.html', {'mensaje': f'Usuario {username} creado'})
+        
+    else:
+        form = UserRegistrationForm()
+            
+    return render(request, 'register.html', {'form': form})
+
+
+
+    

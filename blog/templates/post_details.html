@@ -1,7 +1,24 @@
 {% extends 'layout.html' %}
 
 {%block content %}
+<h1>Post</h1>
+<h3>Seccion Post</h3>
+<li>Post</li>
+<button>
+    <a href="{% url 'post_details' post.id %}">Detalle</a>
+</button>
+<button>
+    <a href="{% url 'post_update' post.id %}">Editar</a>
+</button>
+<button>
+    <a href="{% url 'post_delete' post.id %}">Borrar</a>
+</button>
 
+
+<button>
+    <a href="{% url 'post_create' post.id %}">Crear</a>
+</button>
+{% endblock %}
 <h1>Post</h1>
 
 
@@ -9,7 +26,5 @@
 <h3>{{posts.date|date:'M d Y'}}</h3>
 <p> {{posts.description}}</p>
 <img src="{{posts.image.url}}" alt="{{posts.title}}" />
-<p>
-    <a href="{% url 'post_list'  %}"></a>
-</p>
+
 {% endblock %}
