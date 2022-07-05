@@ -1,5 +1,7 @@
+from msilib.schema import ListView
 from django.db import models
 import datetime
+
 
 
 class Post(models.Model):
@@ -10,3 +12,4 @@ class Post(models.Model):
 
     def __str__(self) -> str:
         return self.title
+

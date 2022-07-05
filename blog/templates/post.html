@@ -1,5 +1,5 @@
 {% extends 'layout.html' %}
-
+{% load static %}
 {%block content%}
 <h1>Posts</h1>
 
@@ -9,14 +9,6 @@
 <h3>{{posts.date|date:'M d Y'}}</h3>
 <p> {{posts.description|safe}}</p>
 <img src="{{posts.image.url}}" alt="{{posts.title}}" />
-<button>
-    <a href="{ url 'eliminarPost' post.title}">Eliminar Post</a>
-    <a href="{ url 'editarPost' title}">Editar Post</a>
-
-</button>
-
-
-
 {%endfor%}
 
 
